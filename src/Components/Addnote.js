@@ -1,16 +1,17 @@
-import React, { useState,useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import noteContext from '../context/notes/noteContext';
 
 const Addnote = () => {
     const context = useContext(noteContext);
-    const {addNote } = context;
-    const [note, setNote] = useState({title : "",description : "",tag : "default"});
-    const handleClick = (e)=>{
+    const { addNote } = context;
+    const [note, setNote] = useState({ title: "", description: "", tag: "" });
+    const handleClick = (e) => {
         e.preventDefault()
-        addNote(note.title,note.description,note.tag)
+        addNote(note.title, note.description, note.tag)
+        setNote({ title: "", description: "", tag: "" })
     }
-    const onChange = (e)=>{
-        setNote({...note,[e.target.name] : e.target.value})
+    const onChange = (e) => {
+        setNote({ ...note, [e.target.name]: e.target.value })
     }
 
     return (
@@ -25,7 +26,7 @@ const Addnote = () => {
                                 type="text"
                                 className="form-control"
                                 id="title"
-                                name='title'
+                                name='title' minLength={3} required value={note.title}
                                 aria-describedby="emailHelp"
                                 onChange={onChange}
                             />
@@ -34,8 +35,8 @@ const Addnote = () => {
                             <label htmlFor="description" className="form-label">Description</label>
                             <input
                                 type="text"
-                                className="form-control"
-                                id="description" name='description'
+                                className="form-control" value={note.description}
+                                id="description" name='description' minLength={5} required
                                 onChange={onChange}
                             />
                         </div>
@@ -44,7 +45,7 @@ const Addnote = () => {
                             <input
                                 type="text"
                                 className="form-control"
-                                id="tag" name='tag'
+                                id="tag" name='tag' value={note.tag}
                                 onChange={onChange}
                             />
                         </div>

@@ -18,7 +18,6 @@ const NoteState = (props) => {
       }
     });
     const json = await response.json();
-    console.log(json);
     setNotes(json);
   }
 
@@ -34,15 +33,15 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag })
     });
     // eslint-disable-next-line
-    const json = response.json()
-
+    const note = await response.json();
+    setNotes(notes.concat(note));
     console.log("Adding a new note")
-    const note = {
-      "title": title,
-      "description": description,
-      "tag": tag,
-    }
-    setNotes([...notes, note]);
+    // const note = {
+    //   "title": title,
+    //   "description": description,
+    //   "tag": tag,
+    // }
+    // setNotes([...notes, note]);
 
   }
   // Delete  -> ->
@@ -55,8 +54,8 @@ const NoteState = (props) => {
         "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc2NWI4NGVhNTZkM2UyZDJiODlmNWU1In0sImlhdCI6MTczNDgxNTg5NH0.cGuhbJsO7DJw1x6-zC-p3Xu5WknjAbJl_g5X7l8SVOY"
       },
     });
-    const json = response.json()
-    console.log(json);
+    // eslint-disable-next-line
+    const json = await response.json()
 
     const newnote = notes.filter((note) => { return note._id !== id });
     setNotes(newnote)
@@ -76,16 +75,20 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag })
     });
     // eslint-disable-next-line
-    const json = response.json()
+    const json = await response.json()
+
+    let newnotes = JSON.parse(JSON.stringify(notes));
     // Logic to edit in client
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
+    for (let index = 0; index < newnotes.length; index++) {
+      const element = newnotes[index];
       if (element._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        newnotes[index].title = title;
+        newnotes[index].description = description;
+        newnotes[index].tag = tag;
+        break;
       }
     }
+    setNotes(newnotes)
   }
 
   return (

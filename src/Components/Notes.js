@@ -5,23 +5,26 @@ import Addnote from './Addnote.js';
 
 const Notes = () => {
     const context = useContext(noteContext);
-    const { notes, getNotes } = context;
+    const { notes, getNotes, editNote } = context;
 
     useEffect(() => {
         getNotes();
+        // eslint-disable-next-line
     }, []);
+
+    const ref = useRef(null);
+    const refClose = useRef(null);
+    const [note, setNote] = useState({id : "", etitle : "",edescription : "",etag : ""});
 
     const updateNote = (currNote) => {
         ref.current.click();
-        setNote({etitle : currNote.title, edescription : currNote.description, etag : currNote.tag});
+        setNote({id : currNote._id, etitle : currNote.title, edescription : currNote.description, etag : currNote.tag});
     };
 
-    const ref = useRef(null);
-    const [note, setNote] = useState({etitle : "",edescription : "",etag : ""});
-
     const handleClick = (e)=>{
-        e.preventDefault();
-        console.log("note updated")
+        console.log("note updated");
+        editNote(note.id,note.etitle,note.edescription,note.etag);
+        refClose.current.click();
     }
     const onChange = (e)=>{
         setNote({...note,[e.target.name] : e.target.value})
@@ -50,7 +53,7 @@ const Notes = () => {
                                         type="text"
                                         className="form-control"
                                         id="etitle" name='etitle' value={note.etitle}
-                                        aria-describedby="emailHelp"
+                                        aria-describedby="emailHelp" minLength={3} required
                                         onChange={onChange}
                                     />
                                 </div>
@@ -59,7 +62,7 @@ const Notes = () => {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        id="edescription" name='edescription' value={note.edescription}
+                                        id="edescription" name='edescription' value={note.edescription} minLength={5} required
                                         onChange={onChange}
                                     />
                                 </div>
@@ -77,10 +80,10 @@ const Notes = () => {
 
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                            <button type="button" className="btn btn-secondary" ref={refClose} data-bs-dismiss="modal">
                                 Close
                             </button>
-                            <button type="button" className="btn btn-primary" onClick={handleClick}>
+                            <button type="button" className="btn btn-primary"  onClick={handleClick}>
                                 Update note
                             </button>
                         </div>
@@ -91,6 +94,8 @@ const Notes = () => {
             <div className="container ">
                 <div className="mx-4">
                     <h2>Your notes buddy</h2>
+                    <div className="container">{notes.length ===0 && "No notes to display"}</div>
+                    
                     <div className="row">
                         {notes.map((note) => {
                             return <Noteitem note={note} key={note._id} updateNote={updateNote} />;
