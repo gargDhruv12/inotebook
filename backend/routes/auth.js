@@ -13,10 +13,11 @@ router.post('/createuser',[body('name','Enter a valid name').isLength({ min: 3 }
     body('email','Enter a valid email').isEmail(),
     body('password').isLength({ min: 5 }),],async (req,res)=>{
     console.log(req.body);
+    let success = false;
     // If there are errors , return Bad request and errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({success, errors: errors.array() });
     }
     // const user = User(req.body)      method used in very beginning
     // user.save()
@@ -25,7 +26,7 @@ router.post('/createuser',[body('name','Enter a valid name').isLength({ min: 3 }
       //Check whether the user with same email already exits
       let user = await User.findOne({email : req.body.email});
       if(user){
-        return res.status(400).json({error : "Sorry an user with this email already exits"});
+        return res.status(400).json({success, error : "Sorry an user with this email already exits"});
       }
       const salt = await bcrypt.genSalt(10);  // return promise
       const secPass = await bcrypt.hash(req.body.password,salt);
@@ -43,7 +44,8 @@ router.post('/createuser',[body('name','Enter a valid name').isLength({ min: 3 }
       const authToken = jwt.sign(data,JWT_SECRET);
       console.log(authToken);
       //res.json(user);
-      res.json({authToken})
+      success = true;
+      res.json({success, authToken});
     }catch(error){
         console.error(error.message);
         res.status(500).send("Internal server error");
