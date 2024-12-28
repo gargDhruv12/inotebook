@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = (props) => {
     const [credentials,setCredentials] = useState({email : "",password : ""});
     let navigate = useNavigate();    // Note in latest versions of React navigate has been used in place of useHistory
     const handleSubmit = async (e) => {
@@ -13,16 +13,20 @@ const Login = () => {
             },
             body: JSON.stringify({email : credentials.email, password : credentials.password})
         });
-        
+        // if (!response.ok) {
+        //     throw new Error('Network response was not ok');
+        // }
+
         const json = await response.json();
         console.log(json);
         if(json.success){
             // redirect
-            localStorage.setItem('token',json.authToken);
+            localStorage.setItem('token',json.authtoken);
             navigate('/');
+            props.showAlert("Logged in Successfully","success");
         }
         else{
-            alert("Invalid Credentials")
+            props.showAlert("Invalid Credentials","danger");
         }
     }
     const onChange = (e)=>{
@@ -30,7 +34,8 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <div className='mt-2'>
+            <h2 className='my-2'>Login to continue to iNotebook</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>

@@ -41,11 +41,11 @@ router.post('/createuser',[body('name','Enter a valid name').isLength({ min: 3 }
           id : user.id
         }
       }
-      const authToken = jwt.sign(data,JWT_SECRET);
-      console.log(authToken);
+      const authtoken = jwt.sign(data,JWT_SECRET);
+      console.log(authtoken);
       //res.json(user);
       success = true;
-      res.json({success, authToken});
+      res.json({success, authtoken});
     }catch(error){
         console.error(error.message);
         res.status(500).send("Internal server error");
@@ -80,10 +80,10 @@ router.post('/login',[
           id : user.id
         }
       }
-      const authToken = jwt.sign(data,JWT_SECRET);
+      const authtoken = jwt.sign(data,JWT_SECRET);
       console.log("Login successful");
       success = true;
-      res.json({success, authToken});
+      res.json({success, authtoken});
 
     }catch(error){
       console.error(error.message);
