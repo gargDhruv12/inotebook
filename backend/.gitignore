@@ -1,0 +1,9 @@
+# Backend .gitignore
+
+# Ignore node_modules in the backend
+node_modules/
+
+# Optionally, ignore other build artifacts and logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

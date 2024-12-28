@@ -1,0 +1,19 @@
+html, body {
+  height: 100%; /* Ensure both html and body cover full height */
+  margin: 0; /* Remove any default margin */
+  padding: 0; /* Remove any default padding */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #a8a1ff, #c4e0fc); /* Gradient background */
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+i {
+  cursor: pointer;
+}
