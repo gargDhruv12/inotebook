@@ -32,3 +32,6 @@ app.listen(port, () => {
   console.log(`iNotebook app listening on port ${port}`)
 })
 
+// module.exports = (req, res) => {       for vercel if needed
+//   app(req, res);
+// };

@@ -115,3 +115,15 @@ const Notes = (props) => {
 };
 
 export default Notes;
+
+
+
+
+
+// {Array.isArray(notes) ? (
+//     notes.map((note) => {
+//         return <Noteitem note={note} key={note._id} updateNote={updateNote} showAlert={props.showAlert} />;
+//     })
+// ) : (
+//     <div>No notes available</div>
+// )}
