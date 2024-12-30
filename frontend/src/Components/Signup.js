@@ -25,7 +25,7 @@ const Signup = (props) => {
         props.showAlert("Account created Successfully","success");
     }
     else{
-        props.showAlert("Invalid Details","error");
+        props.showAlert("Invalid Details","danger");
     }
 }
 const onChange = (e)=>{
