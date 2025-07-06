@@ -33,31 +33,31 @@ const onChange = (e)=>{
 }
 
   return (
-    
-    <div className='container mt-2'>
-      <h2 className='my-2'>Sign up to use iNotebook</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">Name</label>
-          <input type="text" className="form-control" id="name" name='name' onChange={onChange} aria-describedby="emailHelp" />
-          <div id="emailHelp" className="form-text">We'll never share your name with anyone else.</div>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-          <input type="email" className="form-control" id="exampleInputEmail1" name='email' onChange={onChange} aria-describedby="emailHelp" />
-          <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">Password</label>
-          <input type="password" className="form-control" id="password" name='password' onChange={onChange} minLength={5} required/>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="cpassword" className="form-label">Confirm Password</label>
-          <input type="password" className="form-control" id="cpassword" name='cpassword' onChange={onChange} minLength={5} required />
-        </div>
-
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
+    <div className="flex min-h-screen items-center justify-center bg-background">
+      <div className="w-full max-w-md bg-white dark:bg-card rounded-lg shadow-lg p-8 mx-2">
+        <h2 className="text-2xl font-bold mb-6 text-center">Sign up to use iNotebook</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
+            <input type="text" className="form-control w-full px-3 py-2 border rounded" id="name" name='name' onChange={onChange} aria-describedby="emailHelp" />
+            <div id="emailHelp" className="form-text text-xs text-muted-foreground">We'll never share your name with anyone else.</div>
+          </div>
+          <div>
+            <label htmlFor="exampleInputEmail1" className="block text-sm font-medium mb-1">Email address</label>
+            <input type="email" className="form-control w-full px-3 py-2 border rounded" id="exampleInputEmail1" name='email' onChange={onChange} aria-describedby="emailHelp" />
+            <div id="emailHelp" className="form-text text-xs text-muted-foreground">We'll never share your email with anyone else.</div>
+          </div>
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium mb-1">Password</label>
+            <input type="password" className="form-control w-full px-3 py-2 border rounded" id="password" name='password' onChange={onChange} minLength={5} required/>
+          </div>
+          <div>
+            <label htmlFor="cpassword" className="block text-sm font-medium mb-1">Confirm Password</label>
+            <input type="password" className="form-control w-full px-3 py-2 border rounded" id="cpassword" name='cpassword' onChange={onChange} minLength={5} required />
+          </div>
+          <button type="submit" className="btn btn-primary w-full py-2 mt-2">Submit</button>
+        </form>
+      </div>
     </div>
   )
 }

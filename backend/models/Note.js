@@ -18,6 +18,11 @@ const NoteSchema = new Schema({
         type : String,
         default : "General"
     },
+    category : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'categories',
+        default : null
+    },
     date : {
         type : Date,
         default : Date.now

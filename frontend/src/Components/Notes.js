@@ -1,13 +1,21 @@
-import React, { useContext, useEffect, useRef,useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import noteContext from '../context/notes/noteContext';
+import categoryContext from '../context/categories/categoryContext';
 import Noteitem from './Noteitem';
 import Addnote from './Addnote.js';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '../Components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../Components/ui/dialog';
+import { Input } from '../Components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '../Components/ui/card';
+import { Edit, Search, Filter } from 'lucide-react';
 
 const Notes = (props) => {
-    const context = useContext(noteContext);
-    const { notes, getNotes, editNote } = context;
-    let navigate = useNavigate();    // Note in latest versions of React navigate has been used in place of useHistory
+    const noteContextData = useContext(noteContext);
+    const categoryContextData = useContext(categoryContext);
+    const { notes, getNotes, editNote } = noteContextData;
+    const { categories } = categoryContextData;
+    let navigate = useNavigate();
 
     useEffect(() => {
         if (!localStorage.getItem('token')) {
@@ -15,115 +23,119 @@ const Notes = (props) => {
         } else {
           getNotes();
         }
-        // eslint-disable-next-line
-      }, []);
+    }, []);
 
-    const ref = useRef(null);
-    const refClose = useRef(null);
-    const [note, setNote] = useState({id : "", etitle : "",edescription : "",etag : ""});
+    const [searchTerm, setSearchTerm] = useState("");
+    const selectedCategory = props.selectedCategory;
 
     const updateNote = (currNote) => {
-        ref.current.click();
-        setNote({id : currNote._id, etitle : currNote.title, edescription : currNote.description, etag : currNote.tag});
+        props.onEditNote && props.onEditNote(currNote, (updatedNote) => {
+            editNote(
+                updatedNote.id,
+                updatedNote.etitle,
+                updatedNote.edescription,
+                updatedNote.etag,
+                updatedNote.ecategory || null
+            );
+            props.showAlert("Updated Successfully","success");
+        });
     };
 
-    const handleClick = (e)=>{
-        console.log("note updated");
-        editNote(note.id,note.etitle,note.edescription,note.etag);
-        refClose.current.click();
-        props.showAlert("Updated Successfully","success");
+    const onChange = (e) => {
+        // This function is no longer used in the new implementation
     }
-    const onChange = (e)=>{
-        setNote({...note,[e.target.name] : e.target.value})
-    }
+
+    // Filter notes based on selected category and search term
+    const filteredNotes = notes.filter(note => {
+        const matchesCategory = selectedCategory === null || note.category === selectedCategory;
+        const matchesSearch = note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            note.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            note.tag.toLowerCase().includes(searchTerm.toLowerCase());
+        return matchesCategory && matchesSearch;
+    });
+
+    const getCategoryName = (categoryId) => {
+        if (!categoryId) return "No Category";
+        const category = categories.find(cat => cat._id === categoryId);
+        return category ? `${category.icon} ${category.name}` : "Unknown Category";
+    };
+
     return (
         <>
-            <Addnote showAlert = {props.showAlert} />
+            <Addnote showAlert={props.showAlert} />
 
-            <button type="button" className="btn btn-primary d-none" ref={ref} data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Launch demo modal
-            </button>
-
-            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Edit note</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            {/* Search and Filter Section */}
+            <Card className="mb-6">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                        <Search className="h-5 w-5" />
+                        Search & Filter Notes
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <div className="flex gap-4">
+                        <div className="flex-1">
+                            <label className="text-sm font-medium">Search Notes</label>
+                            <Input
+                                type="text"
+                                placeholder="Search by title, description, or tag..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
                         </div>
-                        <div className="modal-body">
-
-                            <form className='my-3'>
-                                <div className="mb-3">
-                                    <label htmlFor="etitle" className="form-label">Title</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="etitle" name='etitle' value={note.etitle}
-                                        aria-describedby="emailHelp" minLength={3} required
-                                        onChange={onChange}
-                                    />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="edescription" className="form-label">Description</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="edescription" name='edescription' value={note.edescription} minLength={5} required
-                                        onChange={onChange}
-                                    />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="etag" className="form-label">Tag</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="etag" name='etag' value={note.etag}
-                                        onChange={onChange}
-                                    />
-                                </div>
-                               
-                            </form>
-
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" ref={refClose} data-bs-dismiss="modal">
-                                Close
-                            </button>
-                            <button type="button" className="btn btn-primary"  onClick={handleClick}>
-                                Update note
-                            </button>
+                        <div className="flex-1">
+                            <label className="text-sm font-medium">Current Category</label>
+                            <div className="flex h-10 w-full items-center rounded-md border border-input bg-background px-3 py-2 text-sm">
+                                {selectedCategory ? 
+                                    categories.find(cat => cat._id === selectedCategory)?.name || "Unknown Category" :
+                                    "All Categories"
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </CardContent>
+            </Card>
 
-            <div className="container ">
-                <div className="mx-4">
-                    <h2>Your notes buddy</h2>
-                    <div className="container">{notes.length ===0 && "No notes to display"}</div>
-                    
-                    <div className="row">
-                        {notes.map((note) => {
-                            return <Noteitem note={note} key={note._id} updateNote={updateNote} showAlert = {props.showAlert} />;
+            {/* Notes Display */}
+            <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                    <h2 className="text-2xl font-bold">Your Notes</h2>
+                    <div className="text-sm text-muted-foreground">
+                        {filteredNotes.length} note{filteredNotes.length !== 1 ? 's' : ''} found
+                    </div>
+                </div>
+                
+                {filteredNotes.length === 0 ? (
+                    <Card>
+                        <CardContent className="flex flex-col items-center justify-center py-12">
+                            <div className="text-4xl mb-4">📝</div>
+                            <h3 className="text-lg font-semibold mb-2">No notes found</h3>
+                            <p className="text-muted-foreground text-center">
+                                {searchTerm || selectedCategory 
+                                    ? "Try adjusting your search or filter criteria"
+                                    : "Create your first note to get started!"
+                                }
+                            </p>
+                        </CardContent>
+                    </Card>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {filteredNotes.map((note) => {
+                            return (
+                                <Noteitem 
+                                    note={note} 
+                                    key={note._id} 
+                                    updateNote={updateNote} 
+                                    showAlert={props.showAlert}
+                                    categoryName={getCategoryName(note.category)}
+                                />
+                            );
                         })}
                     </div>
-                </div>
+                )}
             </div>
         </>
     );
 };
 
 export default Notes;
-
-
-
-
-
-// {Array.isArray(notes) ? (
-//     notes.map((note) => {
-//         return <Noteitem note={note} key={note._id} updateNote={updateNote} showAlert={props.showAlert} />;
-//     })
-// ) : (
-//     <div>No notes available</div>
-// )}

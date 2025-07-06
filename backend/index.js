@@ -1,10 +1,11 @@
 const connectToMongo = require('./db');
 const express = require('express')
 var cors = require('cors')
+require('dotenv').config();
 
 connectToMongo();
 const app = express()
-const port = 5000
+const port = process.env.PORT || 5000;
 app.use(cors())
 app.use(express.json())
 // Available routes
@@ -19,6 +20,7 @@ app.use(express.json())
 // })
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/notes', require('./routes/notes'))
+app.use('/api/categories', require('./routes/categories'))
 
 app.use((err, req, res, next) => {
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
