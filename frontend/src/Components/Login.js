@@ -6,7 +6,7 @@ const Login = (props) => {
     let navigate = useNavigate();    // Note in latest versions of React navigate has been used in place of useHistory
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch(`http://localhost:5000/api/auth/login`, {
+        const response = await fetch(`https://inotebook-4v99.onrender.com/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ const Login = (props) => {
             localStorage.setItem('token',json.authtoken);
             // Fetch user name after login
             try {
-                const userRes = await fetch('http://localhost:5000/api/auth/getuser', {
+                const userRes = await fetch('https://inotebook-4v99.onrender.com/api/auth/getuser', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

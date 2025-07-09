@@ -7,7 +7,7 @@ const Signup = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const {name,email,password} = credentials;
-    const response = await fetch(`http://localhost:5000/api/auth/createuser`, {
+    const response = await fetch(`https://inotebook-4v99.onrender.com/api/auth/createuser`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ const Signup = (props) => {
         localStorage.setItem('token',json.authtoken);
         // Fetch user name after signup
         try {
-            const userRes = await fetch('http://localhost:5000/api/auth/getuser', {
+            const userRes = await fetch('https://inotebook-4v99.onrender.com/api/auth/getuser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
