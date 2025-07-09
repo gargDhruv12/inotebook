@@ -2,7 +2,7 @@ import { useState } from "react";
 import categoryContext from "./categoryContext";
 
 const CategoryState = (props) => {
-  const host = "http://localhost:5000"
+  const host = "https://inotebook-4v99.onrender.com"
   const initialCategories = []
   const [categories, setCategories] = useState(initialCategories)
 
