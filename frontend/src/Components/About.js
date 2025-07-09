@@ -28,7 +28,7 @@ const About = () => {
                     </ol>
                 </div>
                 <div className="text-center text-muted-foreground text-sm">
-                    Made with <span className="text-red-500">♥</span> using React, Tailwind CSS, and Shadcn/ui.
+                    Made with <span className="text-red-500">♥</span> by Dhruv Garg
                 </div>
             </div>
         </div>
