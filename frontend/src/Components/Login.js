@@ -20,8 +20,24 @@ const Login = (props) => {
         const json = await response.json();
         console.log(json);
         if(json.success){
-            // redirect
             localStorage.setItem('token',json.authtoken);
+            // Fetch user name after login
+            try {
+                const userRes = await fetch('http://localhost:5000/api/auth/getuser', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'auth-token': json.authtoken
+                    }
+                });
+                const userData = await userRes.json();
+                if(userData && userData.name) {
+                    localStorage.setItem('username', userData.name);
+                }
+            } catch (err) {
+                // fallback: clear username if fetch fails
+                localStorage.removeItem('username');
+            }
             navigate('/');
             props.showAlert("Logged in Successfully","success");
         }
@@ -34,8 +50,13 @@ const Login = (props) => {
     }
 
     return (
-        <div className="flex justify-center bg-background py-12">
-            <div className="w-full max-w-md bg-white dark:bg-card rounded-lg shadow-lg p-8 mx-2 my-8">
+        <div className="min-h-screen flex items-center justify-center" style={{
+            backgroundImage: `url(${process.env.PUBLIC_URL + '/notes_bg.jpg'})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+        }}>
+            <div className="w-full max-w-md bg-white/80 dark:bg-card/80 rounded-lg shadow-lg p-8 mx-2 -mt-24 backdrop-blur-md">
                 <h2 className="text-2xl font-bold mb-6 text-center">Login to continue to iNotebook</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>

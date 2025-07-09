@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from '../Components/ui/button';
 import { BookOpen, LogOut, User, Home, Info } from 'lucide-react';
@@ -6,9 +6,20 @@ import { BookOpen, LogOut, User, Home, Info } from 'lucide-react';
 const Navbar = () => {
   let navigate = useNavigate();
   let location = useLocation()
-  
+  const [username, setUsername] = useState(localStorage.getItem('username'));
+
+  useEffect(() => {
+    const onStorage = () => setUsername(localStorage.getItem('username'));
+    window.addEventListener('storage', onStorage);
+    // Also update on mount and when token changes
+    setUsername(localStorage.getItem('username'));
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    setUsername(null);
     navigate("/login")
   }
   
@@ -47,6 +58,12 @@ const Navbar = () => {
           </div>
           
           <div className="flex items-center space-x-2">
+            {username && localStorage.getItem('token') && (
+              <div className="flex items-center space-x-2 px-3 py-1 rounded-full bg-primary/10 text-primary font-semibold text-base">
+                <User className="h-5 w-5 mr-1" />
+                <span className="max-w-[120px] truncate">{username}</span>
+              </div>
+            )}
             {(!localStorage.getItem('token')) ? (
               <>
                 <Link to="/login">
