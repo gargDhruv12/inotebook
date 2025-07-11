@@ -1,14 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import noteContext from '../context/notes/noteContext';
 import categoryContext from '../context/categories/categoryContext';
 import Noteitem from './Noteitem';
 import Addnote from './Addnote.js';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '../Components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../Components/ui/dialog';
 import { Input } from '../Components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '../Components/ui/card';
-import { Edit, Search, Filter } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 const Notes = (props) => {
     const noteContextData = useContext(noteContext);
@@ -23,7 +21,7 @@ const Notes = (props) => {
         } else {
           getNotes();
         }
-    }, []);
+    }, [getNotes, navigate]);
 
     const [searchTerm, setSearchTerm] = useState("");
     const selectedCategory = props.selectedCategory;
@@ -40,10 +38,6 @@ const Notes = (props) => {
             props.showAlert("Updated Successfully","success");
         });
     };
-
-    const onChange = (e) => {
-        // This function is no longer used in the new implementation
-    }
 
     // Filter notes based on selected category and search term
     const filteredNotes = notes.filter(note => {
