@@ -17,6 +17,7 @@ import PrivateRoute from './Components/PrivateRoute';
 
 function App() {
   const [alert, setAlert] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const showAlert = (message, type) => {
     setAlert({
@@ -33,11 +34,11 @@ function App() {
       <NoteState>
         <CategoryState>
           <>
-            <Navbar />
+            <Navbar onOpenSidebar={() => setDrawerOpen(true)} />
             <Alert alert={alert} />
             <div className="min-h-screen bg-background">
               <Routes>
-                <Route path="/" element={ <PrivateRoute> <Home showAlert={showAlert} /></PrivateRoute>} />
+                <Route path="/" element={ <PrivateRoute> <Home showAlert={showAlert} drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} /></PrivateRoute>} />
                 <Route path="/about" element={ <PrivateRoute> <About /></PrivateRoute>} />
                 {/* <Route path="/about" element={<About />} /> */}
                 <Route path="/login" element={<Login showAlert={showAlert} />} />

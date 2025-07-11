@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from '../Components/ui/button';
-import { BookOpen, LogOut, User, Home, Info } from 'lucide-react';
+import { BookOpen, LogOut, User, Home, Info, Menu } from 'lucide-react';
 
-const Navbar = () => {
+const Navbar = ({ onOpenSidebar }) => {
   let navigate = useNavigate();
   let location = useLocation()
   const [username, setUsername] = useState(localStorage.getItem('username'));
@@ -28,6 +28,16 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center space-x-4">
+            {/* Hamburger menu for mobile */}
+            {localStorage.getItem('token') && (
+              <button
+                className="md:hidden mr-2 p-2 rounded hover:bg-accent focus:outline-none"
+                onClick={onOpenSidebar}
+                aria-label="Open sidebar"
+              >
+                <Menu className="h-6 w-6" />
+              </button>
+            )}
             <Link to="/" className="flex items-center space-x-2">
               <BookOpen className="h-6 w-6 text-primary" />
               <span className="text-xl font-bold">iNotebook</span>

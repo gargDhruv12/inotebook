@@ -39,11 +39,25 @@ const Home = (props) => {
 
   return (
     <div className="flex h-screen">
-      <CategorySidebar 
-        selectedCategory={selectedCategory}
-        onCategorySelect={setSelectedCategory}
-        showAlert={props.showAlert}
-      />
+      {/* Sidebar for desktop */}
+      <div className="hidden md:block h-full">
+        <CategorySidebar 
+          selectedCategory={selectedCategory}
+          onCategorySelect={setSelectedCategory}
+          showAlert={props.showAlert}
+        />
+      </div>
+      {/* Drawer for mobile */}
+      <div className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${props.drawerOpen ? 'block' : 'hidden'}`}>
+        <div className="w-full h-full bg-background flex flex-col overflow-y-auto" tabIndex={-1} role="dialog" aria-modal="true">
+          <CategorySidebar 
+            selectedCategory={selectedCategory}
+            onCategorySelect={(cat) => { setSelectedCategory(cat); props.setDrawerOpen(false); }}
+            showAlert={props.showAlert}
+          />
+        </div>
+      </div>
+      {/* Main content */}
       <div className="flex-1 overflow-auto p-6">
         <Notes 
           showAlert={props.showAlert}

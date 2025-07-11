@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import categoryContext from '../context/categories/categoryContext';
 import { Button } from '../Components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../Components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../Components/ui/dialog';
 import { Input } from '../Components/ui/input';
 import { Plus, Folder, Edit, Trash2 } from 'lucide-react';
@@ -20,7 +19,7 @@ const CategorySidebar = ({ selectedCategory, onCategorySelect, showAlert }) => {
 
     useEffect(() => {
         getCategories();
-    }, []);
+    }, [getCategories]);
 
     const handleAddCategory = async (e) => {
         e.preventDefault();
@@ -74,12 +73,12 @@ const CategorySidebar = ({ selectedCategory, onCategorySelect, showAlert }) => {
     const iconOptions = ['📁', '📚', '💡', '🎯', '📝', '📊', '🔬', '🧪', '📖', '✏️'];
 
     return (
-        <div className="w-64 bg-background border-r border-border h-full p-4">
+        <div className="w-full max-w-xs sm:w-64 bg-background border-r border-border h-full p-2 sm:p-4 overflow-y-auto text-base sm:text-base text-sm">
             <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold">Categories</h2>
+                <h2 className="text-lg sm:text-xl font-semibold">Categories</h2>
                 <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
                     <DialogTrigger asChild>
-                        <Button size="sm" className="h-8 w-8 p-0">
+                        <Button size="sm" className="h-8 w-8 p-0 text-base sm:text-base text-sm">
                             <Plus className="h-4 w-4" />
                         </Button>
                     </DialogTrigger>
@@ -137,10 +136,10 @@ const CategorySidebar = ({ selectedCategory, onCategorySelect, showAlert }) => {
                 </Dialog>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2">
                 <Button
                     variant={selectedCategory === null ? "default" : "ghost"}
-                    className="w-full justify-start"
+                    className="w-full justify-start text-base sm:text-base text-sm py-2 sm:py-2"
                     onClick={() => onCategorySelect(null)}
                 >
                     <Folder className="mr-2 h-4 w-4" />
@@ -151,7 +150,7 @@ const CategorySidebar = ({ selectedCategory, onCategorySelect, showAlert }) => {
                     <div key={category._id} className="group relative">
                         <Button
                             variant={selectedCategory === category._id ? "default" : "ghost"}
-                            className="w-full justify-start"
+                            className="w-full justify-start text-base sm:text-base text-sm py-2 sm:py-2"
                             onClick={() => onCategorySelect(category._id)}
                             style={{ 
                                 backgroundColor: selectedCategory === category._id ? category.color : 'transparent',
