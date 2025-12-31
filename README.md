@@ -1,88 +1,134 @@
-📝 NoteMate – Secure MERN Note Making App
-<p align="center"> <img src="https://img.shields.io/badge/MERN-Stack-blue?style=for-the-badge" /> <img src="https://img.shields.io/badge/JWT-Security-green?style=for-the-badge" /> <img src="https://img.shields.io/badge/Tailwind-CSS-38bdf8?style=for-the-badge" /> </p>
-🚀 Overview
+# 📝 NoteMate  
+### Secure MERN Note-Making Application
 
-NoteMate is a secure and user-friendly full-stack note-making web application built using the MERN stack.
-It allows users to create, edit, delete, and organize notes into categories like OS, CN, Daily Tasks, Goals, etc., while ensuring complete data privacy using JWT authentication.
+<p align="center">
+  <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1400&q=80" width="90%" />
+</p>
 
-Each user can access only their own notes, making the application secure and reliable.
+---
 
-✨ Key Features
+## 🌟 About NoteMate
 
-✔ Secure JWT Authentication
-✔ Protected routes (unauthorized users cannot access notes)
-✔ Create, Edit & Delete notes (CRUD operations)
-✔ Category-wise note organization
-✔ Search notes instantly
-✔ Category-based filtering
-✔ User-specific data access
-✔ Clean & responsive UI with Tailwind CSS
+**NoteMate** is a **secure, full-stack note-making application** built using the **MERN stack**.  
+It allows users to **organize their thoughts, academic notes, and daily tasks** in a clean and structured way — while ensuring **complete data privacy** through authentication and protected routes.
 
-🛠 Tech Stack
-Frontend
+Each user gets **their own private workspace**, where notes are accessible **only after login**.
 
-⚛️ React.js
+---
 
-🎨 Tailwind CSS
+## 🚀 Key Features
 
-🔁 Axios
+✨ **JWT Authentication & Protected Routes**  
+✨ **Create, Edit & Delete Notes (Full CRUD)**  
+✨ **Category-Wise Note Organization**  
+✨ **Search & Filter Notes Instantly**  
+✨ **Private Notes – Accessible Only to Logged-In User**  
+✨ **Clean & Responsive UI with Tailwind CSS**
 
-Backend
+---
 
-🟢 Node.js
+## 🧰 Tech Stack
 
-🚂 Express.js
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=react,nodejs,express,mongodb,tailwind" />
+</p>
 
-🔐 JWT Authentication
+| Layer        | Technology |
+|--------------|-----------|
+| Frontend     | React.js, Tailwind CSS |
+| Backend      | Node.js, Express.js |
+| Database     | MongoDB |
+| Authentication | JWT (JSON Web Token) |
 
-Database
+---
 
-🍃 MongoDB (Mongoose)
+## 🔐 Authentication Flow
 
-🔐 Authentication & Security
+- Secure **JWT-based authentication**
+- Tokens stored safely and validated on every request
+- **Protected routes** prevent unauthorized access
+- Notes are fetched **user-wise**, ensuring privacy
 
-Passwords are securely stored
+---
 
-JWT tokens used for authentication
+## 📂 Note Categories
 
-Protected routes using middleware
+Users can organize notes under custom sections like:
 
-Notes are accessible only to the logged-in user
+- 📘 Operating Systems (OS)
+- 🌐 Computer Networks (CN)
+- 📝 Daily Tasks
+- 🎯 Goals
+- ➕ Custom Categories
 
-Unauthorized access is strictly blocked
+Category-wise filtering helps users stay organized and productive.
 
-🧩 Application Features in Detail
-🗂 Notes Management
+---
 
-Create new notes
+## 🖼️ Application Screenshots
 
-Edit existing notes
+### 🔑 Login Page
+<p align="center">
+  <img src="https://images.unsplash.com/photo-1614846027182-cecfee3a427b?auto=format&fit=crop&w=1400&q=80" width="90%" />
+</p>
 
-Delete notes
+---
 
-Categorize notes (OS, CN, Goals, Daily Tasks, etc.)
+### 📝 Add Notes Page
+<p align="center">
+  <img src="https://images.unsplash.com/photo-1587614382346-acf8251eacfd?auto=format&fit=crop&w=1400&q=80" width="90%" />
+</p>
 
-🔍 Search & Filter
+---
 
-Search notes by title/content
+### 🗂️ Add / Manage Categories
+<p align="center">
+  <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1400&q=80" width="90%" />
+</p>
 
-Filter notes category-wise
+---
 
-📸 Screenshots
-🔐 Login Page
-<img src="./screenshots/login.png" alt="Login Page" width="800"/>
-📝 Add Notes Page
-<img src="./screenshots/add-note.png" alt="Add Notes Page" width="800"/>
-🗂 Add Category Page
-<img src="./screenshots/add-category.png" alt="Add Category Page" width="800"/>
+## 🔍 Search & Filter
 
+- Search notes by **title or content**
+- Filter notes **category-wise**
+- Instant updates without page reloads
 
-👨‍💻 Author
+---
 
-Dhruv Garg
-🎓 NIT Kurukshetra
-💡 Full-Stack Developer
+## 🔒 Data Privacy & Security
 
-⭐ Show Your Support
+✔ Notes are **linked to user accounts**  
+✔ No user can access another user’s notes  
+✔ Backend validates JWT on every request  
 
-If you like this project, give it a star ⭐ on GitHub — it really helps!
+---
+
+## 📈 Project Highlights
+
+- Well-structured **REST APIs**
+- Clean separation of **frontend & backend**
+- Scalable database schema
+- Responsive UI for all screen sizes
+
+---
+
+## 🎯 Use Cases
+
+- Students managing academic notes
+- Daily task tracking
+- Goal planning
+- Personal knowledge base
+
+---
+
+## 👨‍💻 Author
+
+**Dhruv Garg**  
+Prefinal Year Student, NIT Kurukshetra  
+
+---
+
+## ⭐ Show Your Support
+
+If you like this project, consider giving it a ⭐ on GitHub — it really helps!
