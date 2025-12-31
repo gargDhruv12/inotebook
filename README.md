@@ -1,10 +1,6 @@
 # 📝 NoteMate  
 ### Secure MERN Note-Making Application
 
-<p align="center">
-  <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1400&q=80" width="90%" />
-</p>
-
 ---
 
 ## 🌟 About NoteMate
@@ -69,21 +65,21 @@ Category-wise filtering helps users stay organized and productive.
 
 ### 🔑 Login Page
 <p align="center">
-  <img src="https://images.unsplash.com/photo-1614846027182-cecfee3a427b?auto=format&fit=crop&w=1400&q=80" width="90%" />
+  <img src="./screenshots/login.png" alt="Login Page" width="800"/>
 </p>
 
 ---
 
 ### 📝 Add Notes Page
 <p align="center">
-  <img src="https://images.unsplash.com/photo-1587614382346-acf8251eacfd?auto=format&fit=crop&w=1400&q=80" width="90%" />
+  <img src="./screenshots/add-note.png" alt="Add Notes Page" width="800"/>
 </p>
 
 ---
 
 ### 🗂️ Add / Manage Categories
 <p align="center">
-  <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1400&q=80" width="90%" />
+  <img src="./screenshots/add-category.png" alt="Add Category Page" width="800"/>
 </p>
 
 ---
